@@ -1,10 +1,35 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
+from collections import defaultdict
 
 
 def get_birthdays_per_week(users):
-    
     # Реалізуйте тут домашнє завдання
-    return users
+    users_list = defaultdict(list)
+    today_date = date.today()
+    current_year = today_date.year
+    week_interval = timedelta(days=7)
+    if len(users) < 1:
+        return users_list
+    for dictionary in users:
+        user_birthday = dictionary.get("birthday")
+        if user_birthday.month == 1:
+            user_birthday = user_birthday.replace(year=current_year + 1)
+        else:
+            user_birthday = user_birthday.replace(year=current_year)
+        if user_birthday - today_date > week_interval or user_birthday < today_date:
+            continue
+        birthday_weekday = user_birthday.weekday()
+        if birthday_weekday == 0 or birthday_weekday == 5 or birthday_weekday == 6:
+            users_list["Monday"].append(dictionary.get("name"))
+        elif birthday_weekday == 1:
+            users_list["Tuesday"].append(dictionary.get("name"))
+        elif birthday_weekday == 2:
+            users_list["Wednesday"].append(dictionary.get("name"))
+        elif birthday_weekday == 3:
+            users_list["Thursday"].append(dictionary.get("name"))
+        else:
+            users_list["Friday"].append(dictionary.get("name"))
+    return users_list
 
 
 if __name__ == "__main__":
