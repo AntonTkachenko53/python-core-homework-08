@@ -2,6 +2,7 @@ from datetime import date, datetime
 
 
 def get_birthdays_per_week(users):
+    
     # Реалізуйте тут домашнє завдання
     return users
 
