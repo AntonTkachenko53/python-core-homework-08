@@ -19,16 +19,10 @@ def get_birthdays_per_week(users):
         if user_birthday - today_date > week_interval or user_birthday < today_date:
             continue
         birthday_weekday = user_birthday.weekday()
-        if birthday_weekday == 0 or birthday_weekday == 5 or birthday_weekday == 6:
-            users_list["Monday"].append(dictionary.get("name"))
-        elif birthday_weekday == 1:
-            users_list["Tuesday"].append(dictionary.get("name"))
-        elif birthday_weekday == 2:
-            users_list["Wednesday"].append(dictionary.get("name"))
-        elif birthday_weekday == 3:
-            users_list["Thursday"].append(dictionary.get("name"))
+        if birthday_weekday not in (5, 6):
+            users_list[user_birthday.strftime('%A')].append(dictionary.get("name"))
         else:
-            users_list["Friday"].append(dictionary.get("name"))
+            users_list["Monday"].append(dictionary.get("name"))
     return users_list
 
 
